@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circular Cymatics</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+      }
+      fieldset {
+        position: fixed; 
+        top: 20px; 
+        left: 10px;
+        width: 15vw; 
+        color: white;
+        overflow-y: auto;
+        max-height: 80vh;
+      }
+      input[type='number']
+      {
+        width: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="position: fixed; top: 10px; left: 10px; color: white"></h1>
+    <fieldset >
+      <legend>Parameters:</legend>
+      <div id="config2d">
+        <label for="lineSlider">Line Thickness</label>
+        <input name="lineSlider" type="range" id="lineSlider" min="10" max="100" step="1" value="60">
+      </div>
+      <div id="config3d">
+        <label for="lineSlider">Sound Smoothing</label><br>
+        <input name="lineSlider" type="range" id="soundSmoothing" min="1" max="100" step="1" value="50">
+        <br>
+
+        <label for="lineSlider">2D Chladni Strength</label><br>
+        <input name="lineSlider" type="range" id="chladni2dStrength" min="0" max=".1" step=".005" value=".02">
+
+
+        <!--
+        <label for="lineSlider">Dot Size</label><br>
+        <input name="lineSlider" type="range" id="dotSize" min=".1" max="1" step=".01" value=".4">
+        <br>
+
+        <label for="lineSlider">Wave Strength</label><br>
+        <input name="lineSlider" type="range" id="offsetStrength" min="0" max=".25" step=".01" value=".07">
+        <hr>
+        <br>
+        <label for="lineSlider">Bass Range</label><br>
+        Min: <input type="number" id="rangeBassMin" value="60"><br>Max: <input type="number"  id="rangeBassMax" value="250">
+        <hr>
+        <br>
+        <label for="lineSlider">Mid Range</label><br>
+        Min: <input type="number" id="rangeMidMin" value="250"><br>Max: <input type="number"  id="rangeMidMax" value="2000">
+        <hr>
+
+        <br>
+        <label for="lineSlider">Minimum Values</label><br>
+        M: <input type="number" id="minM" value="3"><br>
+        N: <input type="number"  id="minN" value="2"><br>
+        A: <input type="number" id="minA" value="1"><br>
+        B: <input type="number"  id="minB" value="1">
+        <hr>
+        <br>
+        <label for="lineSlider">Maximum Values</label><br>
+        M: <input type="number" id="maxM" value="9999"><br>
+        N: <input type="number"  id="maxN" value="9999"><br>
+        A: <input type="number" id="maxA" value="2"><br>
+        B: <input type="number"  id="maxB" value="2">
+        <hr>
+        <br>
+        <label for="lineSlider">Divide Value By</label><br>
+        M: <input type="number" id="divM" value="32"><br>
+        N: <input type="number"  id="divN" value="26"><br>
+        A: <input type="number" id="divA" value="200"><br>
+        B: <input type="number"  id="divB" value="500">
+        -->
+      </div>
+    </fieldset>	
+    <script type="module">[main-script]</script>
+  </body>
+</html>
