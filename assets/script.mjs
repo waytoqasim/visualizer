@@ -9,9 +9,6 @@ let sourceNode = null;
 let analyserNode = null;
 let amplitudeArray = null;
 
-// Send message to RN
-// window.ReactNativeWebView.postMessage(buffer.length);
-
 // Initialize Three.js
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(
@@ -130,8 +127,6 @@ window.addEventListener("resize", () => {
 
 function updateInputs() {
   const [bass, mid] = deriveValues();
-  //log.innerHTML = `Bass: ${bass} Mid: ${mid}`;
-
   uniforms.uMN.value.x = Math.max(bass / 13, 3);
   uniforms.uMN.value.y = Math.max(mid / 14, 7);
   uniforms.uAB.value.x = Math.max(mid / 17, 2);
@@ -140,44 +135,37 @@ function updateInputs() {
   uniforms.uLine.value = 1 - parseFloat(lineSlider.value) / 100;
 }
 
-// Function to derive four values based on frequency distribution
+// Function to derive values based on frequency distribution
 function deriveValues() {
-  if(!amplitudeArray) return [0,0,0];
-  // Define frequency ranges (adjust these according to your needs)
-  const bassRange = [60, 250]; // Bass frequencies
-  const midRange = [250, 2000]; // Midrange frequencies
-  // const trebleRange = [2000, 4000]; // Treble frequencies
-  // const highRange = [4000, 20000]; // High frequencies
+  if (!amplitudeArray) return [0, 0];
+  
+  analyserNode.getByteFrequencyData(amplitudeArray);
 
   // Calculate intensity within each range
-  analyserNode.getByteFrequencyData(amplitudeArray);
-  const bassIntensity = getIntensityInRange(amplitudeArray, bassRange);
-  const midIntensity = getIntensityInRange(amplitudeArray, midRange);
-  // const trebleIntensity = getIntensityInRange(amplitudeArray, trebleRange);
-  // const highIntensity = getIntensityInRange(amplitudeArray, highRange);
+  const bassIntensity = getIntensityInRange(amplitudeArray, 60, 250);
+  const midIntensity = getIntensityInRange(amplitudeArray, 250, 2000);
 
-  // Return the derived values
   return [bassIntensity, midIntensity];
 }
 
 // Function to calculate intensity within a specified frequency range
-function getIntensityInRange(dataArray, range) {
+function getIntensityInRange(dataArray, minFreq, maxFreq) {
   const binSize = audioContext.sampleRate / analyserNode.fftSize; // In HZs
-  const startFreq = Math.round(range[0] / binSize);
-  const endFreq = Math.round(range[1] / binSize);
+  const startFreq = Math.floor(minFreq / binSize);
+  const endFreq = Math.ceil(maxFreq / binSize);
+  
   let intensity = 0;
   for (let i = startFreq; i < endFreq; i++) {
     intensity += dataArray[i];
   }
   // Normalize intensity
-  intensity /= endFreq - startFreq;
-  return intensity;
+  return intensity / (endFreq - startFreq);
 }
 
 // Render the scene
 function animate() {
-  updateInputs();
   requestAnimationFrame(animate);
+  updateInputs();
   renderer.render(scene, camera);
 }
 
@@ -200,26 +188,15 @@ function setupAudioNodes() {
   sourceNode.connect(analyserNode);
 }
 
-function getAverageFrequency() {
-  let value = 0;
-  analyserNode.getByteFrequencyData(amplitudeArray);
-
-  for (let i = 0; i < amplitudeArray.length; i++) {
-    value += amplitudeArray[i];
-  }
-
-  return value / amplitudeArray.length;
-}
-
 function stopAudio() {
-  try{
-    sourceNode.stop();
-  } catch(ex) {
-    // Audio not started
-    return;
+  if (sourceNode) {
+    try {
+      sourceNode.stop();
+    } catch (ex) {
+      // Audio not started
+    }
+    sourceNode.disconnect();
   }
-
-  sourceNode.disconnect();
 }
 
 const visualizeAudio = async (url) => {

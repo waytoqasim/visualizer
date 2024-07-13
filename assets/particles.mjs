@@ -13,26 +13,26 @@ document.getElementById('config2d').style.display = 'none'
 
 
 const config = {
-  dotSize: 0.3,             // Increase dot size for better visibility
-  soundSmoothing: 10,       // Decrease smoothing for more responsive changes to the beat
+  dotSize: 0.5,             // Increase dot size for better visibility
+  soundSmoothing: 15,       // Decrease smoothing for more responsive changes to the beat
   rangeBassMin: 20,         // Lower bass range minimum for more bass sensitivity
   rangeBassMax: 300,        // Adjust bass range maximum for more precise bass detection
   rangeMidMin: 200,         // Lower mid range minimum for more mid-range sensitivity
   rangeMidMax: 1500,        // Adjust mid range maximum for more precise mid-range detection
   minM: 2,
-  divM: 10,                 // Reduce divisor for more pronounced changes in the pattern
+  divM: 15,                 // Reduce divisor for more pronounced changes in the pattern
   minN: 3,
-  divN: 18,                 // Reduce divisor for more pronounced changes in the pattern
-  divA: 150,                // Adjust divA for more dynamic pattern variations
-  divB: 300,                // Adjust divB for more dynamic pattern variations
+  divN: 15,                 // Reduce divisor for more pronounced changes in the pattern
+  divA: 200,                // Adjust divA for more dynamic pattern variations
+  divB: 400,                // Adjust divB for more dynamic pattern variations
   minA: 1,
   minB: 1,
-  maxM: 5,                  // Lower maxM for more frequent pattern changes
-  maxN: 5,                  // Lower maxN for more frequent pattern changes
+  maxM: 100,                  // Lower maxM for more frequent pattern changes
+  maxN: 100,                  // Lower maxN for more frequent pattern changes
   maxA: 1.5,                // Increase maxA for greater amplitude variation
   maxB: 1.5,                // Increase maxB for greater amplitude variation
-  offsetStrength: 0.1,      // Increase offset strength for more pronounced visual changes
-  chladni2dStrength: 0.05   // Increase 2D strength for more visible 2D pattern variations
+  offsetStrength: 0.001,      // Increase offset strength for more pronounced visual changes
+  chladni2dStrength: 0.08   // Increase 2D strength for more visible 2D pattern variations
 };
 
 
